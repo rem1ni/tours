@@ -61,7 +61,7 @@ public class Client {
         this.patronymic = patronymic;
     }
 
-    public String getAddres() {
+    public String getAddress() {
         return address;
     }
 
