@@ -1,12 +1,12 @@
 package com.backend.bprobackend.controller;
 
 import com.backend.bprobackend.model.Client;
+import com.backend.bprobackend.model.Route;
 import com.backend.bprobackend.model.Voucher;
 import com.backend.bprobackend.repository.VoucherRepos;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.backend.bprobackend.request.RouteAddRequest;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -21,4 +21,7 @@ public class VoucherController {
         List<Voucher> vouchers = voucherRepos.findAllByOrderByIdAsc();
         return vouchers;
     }
+
+
+
 }
