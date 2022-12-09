@@ -7,10 +7,7 @@ import com.backend.bprobackend.model.User;
 import com.backend.bprobackend.repository.RoleRepos;
 import com.backend.bprobackend.repository.UserRepos;
 
-import com.backend.bprobackend.request.RouteChangeRequest;
-import com.backend.bprobackend.request.RouteDeleteRequest;
-import com.backend.bprobackend.request.UserChangeRequest;
-import com.backend.bprobackend.request.UserDeleteRequest;
+import com.backend.bprobackend.request.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -59,8 +56,21 @@ public class UserController {
                     return ResponseEntity.ok("success");
         }
     }
-
-
+    @PostMapping("/role")
+    public ResponseEntity<?> roleUser(@RequestBody UserRoleChangeRequest userRoleChangeRequest) {
+        User user = userRepos.getById(userRoleChangeRequest.getId());
+        Set<Role> roles = new HashSet<>();
+        Role userRole = roleRepos.findByName(EnumRole.ROLE_EMPLOYEE)
+                .orElseThrow(() -> new RuntimeException("Роль не найдена"));
+        roles.add(userRole);
+        if (userRoleChangeRequest.getAdmin() == true) {
+            Role admin = roleRepos.getById(2);
+            roles.add(admin);
+        }
+        user.setRoles(roles);
+            userRepos.save(user);
+            return ResponseEntity.ok("success");
+    }
 
     @PostMapping("/delete")
     public ResponseEntity<?> deleteUser(@RequestBody UserDeleteRequest userDeleteRequest) {
