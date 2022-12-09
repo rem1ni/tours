@@ -45,16 +45,13 @@ public class UserController {
     @PostMapping("/edit")
     public ResponseEntity<?> editUser(@RequestBody UserChangeRequest userChangeRequest) {
         User user = userRepos.getById(userChangeRequest.getId());
-        if (userRepos.existsByUsername(user.getUsername()))
-        {
-            return ResponseEntity.ok("fail of century");
-        }
-        else {
+
+
             user.setUsername(userChangeRequest.getUsername());
             user.setPassword(encoder.encode(userChangeRequest.getPassword()));
                     userRepos.save(user);
                     return ResponseEntity.ok("success");
-        }
+
     }
     @PostMapping("/role")
     public ResponseEntity<?> roleUser(@RequestBody UserRoleChangeRequest userRoleChangeRequest) {
