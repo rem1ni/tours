@@ -12,13 +12,13 @@ public class Voucher {
     private Integer id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinTable(name = "voucher_route",
+    @JoinTable(name = "routes_voucher",
             joinColumns = @JoinColumn(name = "voucher_id"),
             inverseJoinColumns = @JoinColumn(name = "route_id"))
     private Route route;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinTable(name = "voucher_client",
+    @JoinTable(name = "clients_voucher",
             joinColumns = @JoinColumn(name = "voucher_id"),
             inverseJoinColumns = @JoinColumn(name = "client_id"))
     private Client client;

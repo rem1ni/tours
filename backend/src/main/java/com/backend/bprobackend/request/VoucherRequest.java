@@ -4,27 +4,29 @@ import com.backend.bprobackend.model.Client;
 import com.backend.bprobackend.model.Route;
 
 public class VoucherRequest {
-    private Route route;
-    private Client client;
+
+    private Integer idroute;
+    private Long idclient;
     private String time;
 
     private Integer count;
     private Double discount;
 
-    public Route getRoute() {
-        return route;
+
+    public Integer getIdroute() {
+        return idroute;
     }
 
-    public void setRoute(Route route) {
-        this.route = route;
+    public void setIdroute(Integer idroute) {
+        this.idroute = idroute;
     }
 
-    public Client getClient() {
-        return client;
+    public Long getIdclient() {
+        return idclient;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
+    public void setIdclient(Long idclient) {
+        this.idclient = idclient;
     }
 
     public String getTime() {

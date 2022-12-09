@@ -3,8 +3,11 @@ package com.backend.bprobackend.controller;
 import com.backend.bprobackend.model.Client;
 import com.backend.bprobackend.model.Route;
 import com.backend.bprobackend.model.Voucher;
+import com.backend.bprobackend.repository.ClientRepos;
+import com.backend.bprobackend.repository.RouteRepos;
 import com.backend.bprobackend.repository.VoucherRepos;
 import com.backend.bprobackend.request.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +20,15 @@ import java.util.List;
 public class VoucherController {
     @Autowired
     VoucherRepos voucherRepos;
+    @Autowired
+    RouteRepos routeRepos;
+    @Autowired
+    ClientRepos clientRepos;
 
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @GetMapping("/all")
-    public List<Voucher> adminAccess(){
-        List<Voucher> vouchers = voucherRepos.findAllByOrderByIdAsc();
+    public List<Voucher> getVouchers(){
+        List<Voucher> vouchers = voucherRepos.findAll();
         return vouchers;
     }
 
@@ -39,10 +47,14 @@ public class VoucherController {
 
     @PostMapping("/create")
     public ResponseEntity<?> newVoucher(@RequestBody VoucherRequest voucherRequest) {
-        Voucher voucher = new Voucher(voucherRequest.getRoute(),voucherRequest.getClient(),voucherRequest.getTime(),voucherRequest.getCount(),voucherRequest.getDiscount());
+        Voucher voucher = new Voucher(routeRepos.getById(voucherRequest.getIdroute()),clientRepos.getById(voucherRequest.getIdclient()),voucherRequest.getTime(),voucherRequest.getCount(),voucherRequest.getDiscount());
         voucherRepos.save(voucher);
 
         return ResponseEntity.ok("success");
     }
+
+
+
+
 
 }

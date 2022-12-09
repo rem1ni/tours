@@ -1,7 +1,9 @@
 package com.backend.bprobackend.model;
 
-import javax.persistence.*;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import javax.persistence.*;
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 @Entity
 @Table(name="clients")
 public class Client {
