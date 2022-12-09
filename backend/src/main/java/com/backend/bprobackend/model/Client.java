@@ -13,7 +13,7 @@ public class Client {
     private String surname;
     private String name;
     private String patronymic;
-    private String addres;
+    private String address;
     private String phone;
 
 
@@ -21,11 +21,11 @@ public class Client {
 
     }
 
-    public Client(String surname, String name, String patronymic, String addres, String phone) {
+    public Client(String surname, String name, String patronymic, String address, String phone) {
         this.surname = surname;
         this.name = name;
         this.patronymic = patronymic;
-        this.addres = addres;
+        this.address = address;
         this.phone = phone;
     }
 
@@ -62,11 +62,11 @@ public class Client {
     }
 
     public String getAddres() {
-        return addres;
+        return address;
     }
 
-    public void setAddres(String addres) {
-        this.addres = addres;
+    public void setAddress(String address) {
+        this.address = address;
     }
 
     public String getPhone() {
