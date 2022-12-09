@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface VoucherRepos extends JpaRepository<Voucher,Long> {
+public interface VoucherRepos extends JpaRepository<Voucher,Integer> {
     List<Voucher> findAllByOrderByIdAsc();
 
 }

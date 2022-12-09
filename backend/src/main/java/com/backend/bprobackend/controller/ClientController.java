@@ -31,7 +31,7 @@ public class ClientController {
         }
 
     @PostMapping("/edit")
-    public ResponseEntity<?> newClient(@RequestBody ClientChangeRequest clientChangeRequest) {
+    public ResponseEntity<?> editClient(@RequestBody ClientChangeRequest clientChangeRequest) {
         Client client = clientRepos.getById(clientChangeRequest.getId());
         client.setAddress(clientChangeRequest.getAddress());
         client.setName(clientChangeRequest.getName());

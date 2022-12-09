@@ -33,6 +33,15 @@ public class Voucher {
     public Voucher() {
     }
 
+
+    public Voucher(Route route, Client client, String time, Integer count, Double discount) {
+        this.route = route;
+        this.client = client;
+        this.time = time;
+        this.count = count;
+        this.discount = discount;
+    }
+
     public Integer getId() {
         return id;
     }
