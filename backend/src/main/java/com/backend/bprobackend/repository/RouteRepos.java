@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;
 
-public interface RouteRepos extends JpaRepository<Route,Long> {
+public interface RouteRepos extends JpaRepository<Route,Integer> {
     List<Route> findAllByOrderByIdAsc();
 }

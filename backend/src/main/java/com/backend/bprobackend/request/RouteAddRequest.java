@@ -1,41 +1,12 @@
-package com.backend.bprobackend.model;
+package com.backend.bprobackend.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
-import javax.persistence.*;
-
-@JsonIgnoreProperties({"hibernateLazyInitializer"})
-@Entity
-@Table(name="routes")
-public class Route {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
-
+public class RouteAddRequest {
     private String country;
     private String climate;
     private Integer duration;
     private String hotel;
     private Double cost;
 
-    public Route() {
-    }
-
-    public Route(String country, String climate, Integer duration, String hotel, Double cost) {
-        this.country = country;
-        this.climate = climate;
-        this.duration = duration;
-        this.hotel = hotel;
-        this.cost = cost;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getCountry() {
         return country;
