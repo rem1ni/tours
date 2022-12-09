@@ -1,34 +1,33 @@
 import React, {useEffect, useState} from 'react';
-import {addClientInfo, editClientInfo, getClientsInfo} from "../api/rest/clients";
 import {MyTable} from "../components/MyTable";
 import {Button} from "react-bootstrap";
 import {MyModal} from "../components/MyModal";
+import {addRouteInfo, deleteRouteInfo, editRouteInfo, getRouteInfo} from "../api/rest/routes";
 
-export const Clients = () => {
+export const MRoutes = () => {
     const [clients, setClients] = useState([]);
     const [modalShow, setModalShow] = useState(false);
     const [editModal, setEditModal] = useState(0);
 
     useEffect(() => {
-        getClientsInfo().then(response => {
+        getRouteInfo().then(response => {
             setClients(response.data)
-            console.log(response.data)
         })
     }, [])
 
     const createClient = (client) => {
-        addClientInfo(client).then(console.log).finally(() => {
+        addRouteInfo(client).finally(() => {
             setModalShow(false);
-            getClientsInfo().then(response => {
+            getRouteInfo().then(response => {
                 setClients(response.data)
             })
         })
     }
 
     const editClient = (client) => {
-        editClientInfo(client).then(console.log).finally(() => {
+        editRouteInfo(client).finally(() => {
             setModalShow(false);
-            getClientsInfo().then(response => {
+            getRouteInfo().then(response => {
                 setClients(response.data)
             })
         }).finally(() => setEditModal(0))
@@ -37,6 +36,14 @@ export const Clients = () => {
     const onEdit = (id) => {
         setEditModal(id);
         setModalShow(true)
+    }
+
+    const onDelete = (id) => {
+        deleteRouteInfo({id}).then(() => {
+            getRouteInfo().then(response => {
+                setClients(response.data)
+            })
+        });
     }
 
     return (
@@ -50,9 +57,9 @@ export const Clients = () => {
                     </div>
                 </div>
             </div>
-            <MyTable data={clients} headers={["ID", "Фамилия", "Имя", "Отчество", "Адрес", "Телефон"]} onEdit={onEdit}/>
-            <MyModal show={modalShow} onHide={() => setModalShow(false)} header={"Добавить клиента"}
-                     formHeaders={[["Фамилия", "surname"], ["Имя", "name"], ["Отчество", "patronymic"], ["Адрес", "address"], ["Телефон", "phone"]]}
+            <MyTable data={clients} headers={["ID", "Страна", "Климат", "Длительность", "Отель", "Стоимость"]} onEdit={onEdit} isDelete onDelete={onDelete}/>
+            <MyModal show={modalShow} onHide={() => setModalShow(false)} header={"Добавить маршрут"}
+                     formHeaders={[["Страна", "country"], ["Климат", "climate"], ["Длительность", "duration"], ["Отель", "hotel"], ["Стоимость", "cost"]]}
                      create={createClient} editModal={editModal} edit={editClient}/>
         </div>
     );

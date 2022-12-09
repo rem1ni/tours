@@ -1,7 +1,10 @@
 import React from 'react';
-import {Routes, Route} from "react-router-dom";
+import {Route, Routes} from "react-router-dom";
 import {MyNavbar} from "./Navbar";
 import {Clients} from "./pages/Clients";
+import {MRoutes} from "./pages/MRoutes";
+import {Users} from "./pages/Users";
+import {Trips} from "./pages/Trips";
 
 
 const AppRouter = () => {
@@ -10,6 +13,9 @@ const AppRouter = () => {
             <MyNavbar/>
             <Routes>
                 <Route path="/clients" element={<Clients/>}/>
+                <Route path="/routes" element={<MRoutes/>}/>
+                <Route path="/users" element={<Users/>}/>
+                <Route path="/trips" element={<Trips/>}/>
             </Routes>
         </>
     );
