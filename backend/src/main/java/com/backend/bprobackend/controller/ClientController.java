@@ -5,6 +5,7 @@ import com.backend.bprobackend.model.User;
 import com.backend.bprobackend.repository.ClientRepos;
 import com.backend.bprobackend.repository.RoleRepos;
 import com.backend.bprobackend.repository.UserRepos;
+import com.backend.bprobackend.request.ClientChangeRequest;
 import com.backend.bprobackend.request.ClientRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -28,6 +29,20 @@ public class ClientController {
 
         return ResponseEntity.ok("success");
         }
+
+    @PostMapping("/edit")
+    public ResponseEntity<?> newClient(@RequestBody ClientChangeRequest clientChangeRequest) {
+        Client client = clientRepos.getById(clientChangeRequest.getId());
+        client.setAddres(clientChangeRequest.getAddres());
+        client.setName(clientChangeRequest.getName());
+        client.setPatronymic(clientChangeRequest.getPatronymic());
+        client.setSurname(clientChangeRequest.getSurname());
+        client.setPhone(clientChangeRequest.getPhone());
+        clientRepos.save(client);
+
+        return ResponseEntity.ok("success");
+    }
+
 
 
     @GetMapping("/all")

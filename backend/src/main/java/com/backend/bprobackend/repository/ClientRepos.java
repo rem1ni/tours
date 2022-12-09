@@ -10,4 +10,5 @@ import java.util.List;
 public interface ClientRepos extends JpaRepository<Client,Long> {
     List<Client> findAllByOrderByIdAsc();
 
+
 }

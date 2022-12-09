@@ -11,7 +11,7 @@ import java.util.List;
 
 @CrossOrigin(origins = "http://localhost:3000")
 @RestController
-@RequestMapping("/bpro")
+@RequestMapping("/tour/users")
 public class UserController {
 
     private UserRepos userRepos;
@@ -23,7 +23,7 @@ public class UserController {
 
 
     // надо доделать безопасность
-    @GetMapping("/admin")
+    @GetMapping("/all")
     public List<User> adminAccess(){
         List<User> users = userRepos.findAllByOrderByIdAsc();
         return users;
