@@ -55,19 +55,12 @@ public class UserController {
         else {
             user.setUsername(userChangeRequest.getUsername());
             user.setPassword(encoder.encode(userChangeRequest.getPassword()));
-            Set<Role> roles = new HashSet<>();
-            Role userRole = roleRepos.findByName(EnumRole.ROLE_EMPLOYEE)
-                    .orElseThrow(() -> new RuntimeException("Роль не найдена"));
-            roles.add(userRole);
-            if (userChangeRequest.isAdmin() == true) {
-                Role admin = roleRepos.getById(2);
-                roles.add(admin);
-            }
-            user.setRoles(roles);
                     userRepos.save(user);
                     return ResponseEntity.ok("success");
         }
     }
+
+
 
     @PostMapping("/delete")
     public ResponseEntity<?> deleteUser(@RequestBody UserDeleteRequest userDeleteRequest) {
