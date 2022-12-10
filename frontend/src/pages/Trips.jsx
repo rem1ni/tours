@@ -3,31 +3,49 @@ import {Button} from "react-bootstrap";
 import {MyTable} from "../components/MyTable";
 import {MyModal} from "../components/MyModal";
 import {addUserInfo, changeUserRole, deleteUserInfo, editUserInfo, getUsersInfo} from "../api/rest/users";
-import {getTripsInfo} from "../api/rest/trips";
+import {addRouteInfo, deleteRouteInfo, editRouteInfo, getTripsInfo} from "../api/rest/trips";
+import {getClientsInfo} from "../api/rest/clients";
+import {getRouteInfo} from "../api/rest/routes";
+import {MyModelTripInfo} from "../components/MyModelTripInfo";
 
 export const Trips = () => {
     const [clients, setClients] = useState([]);
+    const [clientsInfo, setClientsInfo] = useState([]);
+    const [routes, setRoutes] = useState([]);
+
     const [modalShow, setModalShow] = useState(false);
+    const [modalInfoShow, setModalInfoShow] = useState(false);
+
     const [editModal, setEditModal] = useState(0);
+
+    const [fullInfoId, setFullInfoId] = useState(null);
 
     useEffect(() => {
         getTripsInfo().then(response => {
-            console.log(response.data)
             setClients(response.data)
+            getClientsInfo().then(response => {
+                setClientsInfo(response.data)
+            })
+            getRouteInfo().then(response => {
+                setRoutes(response.data)
+            })
         })
+
+
     }, [])
 
     const createClient = (client) => {
-        addUserInfo(client).finally(() => {
+        addRouteInfo(client).finally(() => {
             setModalShow(false);
             getTripsInfo().then(response => {
                 setClients(response.data)
             })
+
         })
     }
 
     const editClient = (client) => {
-        editUserInfo(client).finally(() => {
+        editRouteInfo(client).finally(() => {
             setModalShow(false);
             getTripsInfo().then(response => {
                 setClients(response.data)
@@ -41,11 +59,25 @@ export const Trips = () => {
     }
 
     const onDelete = (id) => {
-        deleteUserInfo({id}).then(() => {
+        deleteRouteInfo({id}).then(() => {
             getTripsInfo().then(response => {
                 setClients(response.data)
             })
         });
+    }
+
+    const onShowInfo = (id) => {
+        setFullInfoId(id);
+        setModalInfoShow(true);
+    }
+
+    const getDataForInfo = (id) => {
+        if (!id) return null;
+        return {
+            id: id,
+            client: clientsInfo.filter(el => el.id === id),
+            routes: routes.filter(el => el.id === id),
+        }
     }
 
     return (
@@ -54,15 +86,18 @@ export const Trips = () => {
                 <div className="w-75">
                     <div className="d-flex justify-content-end mb-1">
                         <Button variant="primary" onClick={() => setModalShow(true)} size="m">
-                            Добавить
+                            Продать путевку
                         </Button>
                     </div>
                 </div>
             </div>
-            <MyTable data={clients} headers={["ID","Маршрут", "Клиент", "Дата отправления", "Количество", "Скидка"]} onEdit={onEdit} isDelete onDelete={onDelete}/>
-            <MyModal show={modalShow} onHide={() => setModalShow(false)} header={"Добавить пользователя"}
-                     formHeaders={[["Имя пользователя", "username"], ["Пароль", "password"]]}
-                     create={createClient} editModal={editModal} edit={editClient} />
+            <MyTable data={clients} headers={["ID", "Маршрут", "Клиент", "Дата отправления", "Количество", "Скидка"]}
+                     onEdit={onEdit} isDelete onDelete={onDelete} isShowFullInfo onShowFullInfo={onShowInfo}/>
+            <MyModal show={modalShow} onHide={() => setModalShow(false)} header={"Продать путевку"}
+                     formHeaders={[["Дата отправления", "time"], ["Количество", "count"], ["Скидка", "discount"]]}
+                     create={createClient} editModal={editModal} edit={editClient} isSelect selectClients={clientsInfo}
+                     routes={routes}/>
+            <MyModelTripInfo show={modalInfoShow} onHide={() => setModalInfoShow(false)} data={getDataForInfo(fullInfoId)}/>
         </div>
     );
 };

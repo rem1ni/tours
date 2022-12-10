@@ -3,11 +3,14 @@ import {MyTable} from "../components/MyTable";
 import {Button} from "react-bootstrap";
 import {MyModal} from "../components/MyModal";
 import {addRouteInfo, deleteRouteInfo, editRouteInfo, getRouteInfo} from "../api/rest/routes";
+import {useAuth} from "../auth/useAuth";
 
 export const MRoutes = () => {
     const [clients, setClients] = useState([]);
     const [modalShow, setModalShow] = useState(false);
     const [editModal, setEditModal] = useState(0);
+
+    const {roles} = useAuth();
 
     useEffect(() => {
         getRouteInfo().then(response => {
@@ -51,9 +54,10 @@ export const MRoutes = () => {
             <div className="d-flex justify-content-center text-center">
                 <div className="w-75">
                     <div className="d-flex justify-content-end mb-1">
-                        <Button variant="primary" onClick={() => setModalShow(true)} size="m">
+                        {roles.length > 1 && <Button variant="primary" onClick={() => setModalShow(true)} size="m">
                             Добавить
                         </Button>
+                        }
                     </div>
                 </div>
             </div>

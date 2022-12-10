@@ -1,15 +1,16 @@
 import {BrowserRouter} from "react-router-dom";
 import AppRouter from "./AppRouter";
-import {useEffect} from "react";
-import {getClientsInfo} from "./api/rest/clients";
+import {AuthProvider} from "./auth/AuthProvider";
 
 function App() {
 
-  return (
-      <BrowserRouter>
-          <AppRouter/>
-      </BrowserRouter>
-  );
+    return (
+        <AuthProvider>
+            <BrowserRouter>
+                <AppRouter/>
+            </BrowserRouter>
+        </AuthProvider>
+    );
 }
 
 export default App;

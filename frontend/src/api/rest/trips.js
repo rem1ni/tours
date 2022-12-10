@@ -7,26 +7,26 @@ export const getTripsInfo = () => {
     });
 }
 
-// export const addRouteInfo = (data) => {
-//     return makeRequest({
-//         url: "tour/route/create",
-//         method: "POST",
-//         data: data
-//     });
-// }
-//
-// export const editRouteInfo = (data) => {
-//     return makeRequest({
-//         url: "tour/route/edit",
-//         method: "POST",
-//         data: data
-//     });
-// }
-//
-// export const deleteRouteInfo = (data) => {
-//     return makeRequest({
-//         url: "tour/route/delete",
-//         method: "POST",
-//         data: data
-//     });
-// }
+export const addRouteInfo = (data) => {
+    return makeRequest({
+        url: "tour/voucher/create",
+        method: "POST",
+        data: data
+    });
+}
+
+export const editRouteInfo = (data) => {
+    return makeRequest({
+        url: "tour/voucher/edit",
+        method: "POST",
+        data: data
+    });
+}
+
+export const deleteRouteInfo = (data) => {
+    return makeRequest({
+        url: "tour/voucher/delete",
+        method: "POST",
+        data: data
+    });
+}
