@@ -2,6 +2,7 @@ import React from 'react';
 import {Button, FloatingLabel, Form, Modal, Table} from "react-bootstrap";
 
 export const MyModelTripInfo = ({data, ...props}) => {
+    console.log(data?.routes)
     return (
         <Modal
             {...props}
@@ -48,7 +49,7 @@ export const MyModelTripInfo = ({data, ...props}) => {
                     <tbody>
                     <tr>
                         {
-                            data?.routes && Object.keys(data?.routes[0]).map((el) =>
+                            data?.routes[0] && Object.keys(data?.routes[0]).map((el) =>
                                 <td>{data?.routes[0][el]}</td>
                             )
                         }

@@ -33,7 +33,7 @@ export const Trips = () => {
 
 
     }, [])
-
+    console.log(routes)
     const createClient = (client) => {
         addRouteInfo(client).finally(() => {
             setModalShow(false);
@@ -66,17 +66,17 @@ export const Trips = () => {
         });
     }
 
-    const onShowInfo = (id) => {
-        setFullInfoId(id);
+    const onShowInfo = (id, clientId, routeId) => {
+        setFullInfoId({id, clientId, routeId});
         setModalInfoShow(true);
     }
 
-    const getDataForInfo = (id) => {
-        if (!id) return null;
+    const getDataForInfo = (data) => {
+        if (data === null) return null;
         return {
-            id: id,
-            client: clientsInfo.filter(el => el.id === id),
-            routes: routes.filter(el => el.id === id),
+            id: data.id,
+            client: clientsInfo.filter(el => el.id === data.clientId),
+            routes: routes.filter(el => el.id === data.routeId),
         }
     }
 

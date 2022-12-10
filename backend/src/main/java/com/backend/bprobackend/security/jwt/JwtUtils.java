@@ -16,7 +16,7 @@ public class JwtUtils {
     private String jwtSecret="toursystems";
 
 
-    private int jwtExpirationMs=9371;
+    private int jwtExpirationMs=93719371;
 
     public String generateJwtToken(Authentication authentication) {
 

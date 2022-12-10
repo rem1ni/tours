@@ -45,7 +45,7 @@ export const MyTable = ({
 
                                 <td>
                                     {isShowFullInfo &&
-                                        <Button variant="primary" onClick={() => onShowFullInfo(client.id)} size="sm"
+                                        <Button variant="primary" onClick={() => onShowFullInfo(client?.id, client?.client.id, client?.route.id)} size="sm"
                                                 style={{marginRight: "10px"}}>
                                             Подробнее
                                         </Button>
