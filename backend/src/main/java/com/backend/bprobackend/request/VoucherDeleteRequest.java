@@ -1,6 +1,7 @@
 package com.backend.bprobackend.request;
 
-public class VoucherAddRequest {
+public class VoucherDeleteRequest {
+
     private Integer id;
 
     public Integer getId() {

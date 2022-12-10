@@ -49,9 +49,15 @@ public class VoucherController {
     public ResponseEntity<?> newVoucher(@RequestBody VoucherRequest voucherRequest) {
         Voucher voucher = new Voucher(routeRepos.getById(voucherRequest.getIdroute()),clientRepos.getById(voucherRequest.getIdclient()),voucherRequest.getTime(),voucherRequest.getCount(),voucherRequest.getDiscount());
         voucherRepos.save(voucher);
-
         return ResponseEntity.ok("success");
     }
+
+    @PostMapping("/delete")
+    public ResponseEntity<?> deleteVoucher(@RequestBody VoucherDeleteRequest voucherDeleteRequest) {
+        voucherRepos.deleteById(voucherDeleteRequest.getId());
+        return ResponseEntity.ok("success");
+    }
+
 
 
 
