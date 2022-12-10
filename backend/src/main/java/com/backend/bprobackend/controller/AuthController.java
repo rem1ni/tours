@@ -46,6 +46,18 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@RequestBody LoginRequest loginRequest) {
+        if (roleRepository.findAll().size() < 1) {
+            roleRepository.save(new Role(EnumRole.ROLE_EMPLOYEE));
+            roleRepository.save(new Role(EnumRole.ROLE_ADMIN));
+            Set<Role> roles = new HashSet<>();
+            Role userRole = roleRepository.findByName(EnumRole.ROLE_EMPLOYEE)
+                    .orElseThrow(() -> new RuntimeException("Роль не найдена"));
+            roles.add(userRole);
+            Role admin = roleRepository.getById(2);
+            roles.add(admin);
+            userRepository.save(new User("Admin", encoder.encode("admin"), roles));
+
+        }
 
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
