@@ -35,12 +35,11 @@ public class VoucherController {
     @PostMapping("/edit")
     public ResponseEntity<?> editVoucher(@RequestBody VoucherEditRequest voucherEditRequest) {
         Voucher voucher = voucherRepos.getById(voucherEditRequest.getId());
-        voucher.setClient(voucherEditRequest.getClient());
+        voucher.setClient(clientRepos.getById(voucherEditRequest.getIdclient()));
         voucher.setCount(voucherEditRequest.getCount());
         voucher.setDiscount(voucherEditRequest.getDiscount());
         voucher.setTime(voucherEditRequest.getTime());
-        voucher.setRoute(voucherEditRequest.getRoute());
-        voucher.setClient(voucherEditRequest.getClient());
+        voucher.setRoute(routeRepos.getById(voucherEditRequest.getIdroute()));
         voucherRepos.save(voucher);
         return ResponseEntity.ok("success");
     }
